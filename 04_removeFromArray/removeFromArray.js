@@ -3,18 +3,27 @@ const removeFromArray = function (array, ...positions)
 
     for (let i = 0; i < positions.length; i++)
     {
-        valueOfIndex = array[positions[i] - 1];
-
-        if (positions[i] - 1 < array.length) //position is valid -> is in bounds of array
+        if (typeof (positions[i]) == "string")
         {
-            delete array[positions[i] - 1];
+            delete array[array.indexOf(positions[i])];
+        }
+        else
+        {
 
-            while (array.indexOf(valueOfIndex) != -1) //remove rest of positions with the same value as the given position
+            valueOfIndex = array[positions[i] - 1];
+
+            if (positions[i] - 1 < array.length) //position is valid -> is in bounds of array
             {
-                delete array[array.indexOf(valueOfIndex)];
+                delete array[positions[i] - 1];
+
+                while (array.indexOf(valueOfIndex) != -1) //remove rest of positions with the same value as the given position
+                {
+                    delete array[array.indexOf(valueOfIndex)];
+                }
             }
         }
     }
+
 
     const newArr = [];
     let count = 0;
@@ -33,7 +42,5 @@ const removeFromArray = function (array, ...positions)
 };
 
 
-let myarray = removeFromArray([1, 2, 3, 4], 3, 2)
-console.log(myarray.toString())
 // Do not edit below this line
 module.exports = removeFromArray;
