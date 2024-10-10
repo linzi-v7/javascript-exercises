@@ -1,26 +1,35 @@
 const removeFromArray = function (array, ...positions)
 {
+
     for (let i = 0; i < positions.length; i++)
     {
         valueOfIndex = array[positions[i] - 1];
 
         if (positions[i] - 1 < array.length) //position is valid -> is in bounds of array
         {
-            array.splice(positions[i] - 1, 1);
+            delete array[positions[i] - 1];
 
             while (array.indexOf(valueOfIndex) != -1) //remove rest of positions with the same value as the given position
             {
-                array.splice(array.indexOf(valueOfIndex), 1);
+                delete array[array.indexOf(valueOfIndex)];
             }
+        }
+    }
 
-            for (let j = i; j < positions.length; j++) //now you need to write code to only decrement indices higher than the removed one
-            {
-                positions[j]--;
-            }
+    const newArr = [];
+    let count = 0;
+    for (let index = 0; index < array.length; index++) 
+    {
+
+        if (array[index] !== undefined)
+        {
+            newArr[count] = array[index];
+            count++;
         }
 
     }
-    return array;
+
+    return newArr;
 };
 
 
